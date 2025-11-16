@@ -1,0 +1,49 @@
+# Compiled class files
+*.class
+
+# Log files
+*.log
+logs/
+target/*.log
+
+# Maven build directory
+target/
+
+# Gradle build directories
+.gradle/
+build/
+
+# IntelliJ IDEA files
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Eclipse files
+.classpath
+.project
+.settings/
+
+# VS Code files
+.vscode/
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Spring Boot specific
+# Embedded Tomcat temporary files
+tmp/
+
+# Maven Wrapper (optional, if you want to exclude the wrapper scripts)
+.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+
+# Dependency-related files (if not using a build tool that manages them)
+# For example, if you manually manage a 'lib' directory
+# lib/
+
+# Any specific temporary files or directories you create during development
+# For example, if you have a 'data' directory for local testing
+# data/

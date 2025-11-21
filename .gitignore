@@ -35,6 +35,8 @@ Thumbs.db
 # Spring Boot specific
 # Embedded Tomcat temporary files
 tmp/
+.env*
+/Scroll*
 
 # Maven Wrapper (optional, if you want to exclude the wrapper scripts)
 .mvn/wrapper/maven-wrapper.jar

@@ -1,10 +1,11 @@
 package com.bookstore.in.auth.dto;
 
 public record AuthResponse(
-        String token,
-        Long userId,
-        String name,
-        String email
+		String accessToken,
+		String refreshToken,
+		Long userId,
+		String name,
+		String email
 ) {
 }
 

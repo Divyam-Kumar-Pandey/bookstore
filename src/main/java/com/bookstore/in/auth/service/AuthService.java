@@ -12,6 +12,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
@@ -37,8 +39,9 @@ public class AuthService {
                 .build();
 
         User savedUser = userService.createUser(newUser);
-        String token = jwtService.generateToken(savedUser);
-        return buildResponse(savedUser, token);
+			String accessToken = jwtService.generateAccessToken(savedUser);
+			String refreshToken = jwtService.generateRefreshToken(savedUser);
+			return buildResponse(savedUser, accessToken, refreshToken);
     }
 
     public AuthResponse login(LoginRequest request) {
@@ -46,12 +49,24 @@ public class AuthService {
                 new UsernamePasswordAuthenticationToken(request.email(), request.password())
         );
         User user = userService.findByEmail(request.email());
-        String token = jwtService.generateToken(user);
-        return buildResponse(user, token);
+			String accessToken = jwtService.generateAccessToken(user);
+			String refreshToken = jwtService.generateRefreshToken(user);
+			return buildResponse(user, accessToken, refreshToken);
     }
 
-    private AuthResponse buildResponse(User user, String token) {
-        return new AuthResponse(token, user.getId(), user.getFirstName(), user.getEmail());
+		public AuthResponse refresh(String refreshToken) {
+			String email = jwtService.extractUsername(refreshToken);
+			User user = userService.findByEmail(email);
+			if (!jwtService.isRefreshTokenValid(refreshToken, user)) {
+				throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid refresh token");
+			}
+			String newAccessToken = jwtService.generateAccessToken(user);
+			String newRefreshToken = jwtService.generateRefreshToken(user); // rotate
+			return buildResponse(user, newAccessToken, newRefreshToken);
+		}
+
+		private AuthResponse buildResponse(User user, String accessToken, String refreshToken) {
+			return new AuthResponse(accessToken, refreshToken, user.getId(), user.getFirstName(), user.getEmail());
     }
 }
 

@@ -22,6 +22,9 @@ public class JwtService {
 
     @Value("${jwt.expiration-ms:3600000}")
     private long expirationMs;
+		
+		@Value("${jwt.refresh-expiration-ms:1209600000}") // 14 days default
+		private long refreshExpirationMs;
 
     private SecretKey signingKey;
 
@@ -39,7 +42,11 @@ public class JwtService {
         return claimsResolver.apply(claims);
     }
 
-    public String generateToken(User user) {
+		public String generateToken(User user) {
+			return generateAccessToken(user);
+		}
+
+		public String generateAccessToken(User user) {
         long now = System.currentTimeMillis();
         Date issuedAt = new Date(now);
         Date expiration = new Date(now + expirationMs);
@@ -51,11 +58,29 @@ public class JwtService {
                 .signWith(signingKey)
                 .compact();
     }
+		
+		public String generateRefreshToken(User user) {
+			long now = System.currentTimeMillis();
+			Date issuedAt = new Date(now);
+			Date expiration = new Date(now + refreshExpirationMs);
+			
+			return Jwts.builder()
+					.subject(user.getEmail())
+					.issuedAt(issuedAt)
+					.expiration(expiration)
+					.signWith(signingKey)
+					.compact();
+		}
 
     public boolean isTokenValid(String token, User user) {
         final String email = extractUsername(token);
         return email.equals(user.getEmail()) && !isTokenExpired(token);
     }
+		
+		public boolean isRefreshTokenValid(String refreshToken, User user) {
+			final String email = extractUsername(refreshToken);
+			return email.equals(user.getEmail()) && !isTokenExpired(refreshToken);
+		}
 
     private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());

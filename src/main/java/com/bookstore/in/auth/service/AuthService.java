@@ -31,6 +31,7 @@ public class AuthService {
     public AuthResponse register(RegisterRequest request) {
         User newUser = User.builder()
                 .firstName(request.firstName())
+                .lastName(request.lastName())
                 .email(request.email())
                 .password(request.password())
                 .build();

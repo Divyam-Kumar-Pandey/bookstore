@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bookstore</title>
+    <meta name="description" content="Welcome to Bookstore – a simple Spring Boot app." />
+    <style>
+      :root {
+        --bg: #0f172a;
+        --card: #111827;
+        --accent: #38bdf8;
+        --muted: #94a3b8;
+        --text: #e5e7eb;
+      }
+      * { box-sizing: border-box; }
+      html, body {
+        height: 100%;
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        background: radial-gradient(1200px 800px at 80% -10%, #0b1220 0%, var(--bg) 35%, #0b1220 100%);
+        color: var(--text);
+      }
+      a { color: var(--accent); text-decoration: none; }
+      .container {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 700;
+        letter-spacing: 0.2px;
+      }
+      .brand-badge {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, var(--accent), #2563eb 70%);
+        display: grid;
+        place-items: center;
+        color: white;
+        font-size: 18px;
+      }
+      nav {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+      nav a {
+        color: var(--muted);
+        padding: 8px 12px;
+        border-radius: 8px;
+      }
+      nav a:hover { color: var(--text); background: #0b1220; }
+      .hero {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 32px;
+        align-items: center;
+        padding: 48px 0 16px;
+      }
+      .hero h1 {
+        font-size: clamp(28px, 5vw, 52px);
+        line-height: 1.05;
+        margin: 0 0 12px;
+      }
+      .hero p {
+        margin: 0 0 24px;
+        color: var(--muted);
+        font-size: 18px;
+        line-height: 1.6;
+      }
+      .cta {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .btn {
+        padding: 10px 16px;
+        border-radius: 10px;
+        font-weight: 600;
+        border: 1px solid #1f2937;
+        background: #0b1220;
+        color: var(--text);
+      }
+      .btn.primary {
+        background: linear-gradient(135deg, var(--accent), #2563eb 70%);
+        border: none;
+      }
+      .card {
+        background: linear-gradient(180deg, #0b1220, #0a0f1a);
+        border: 1px solid #1f2937;
+        border-radius: 14px;
+        padding: 18px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      footer {
+        margin-top: 48px;
+        padding: 24px 0 12px;
+        color: var(--muted);
+        font-size: 14px;
+        border-top: 1px solid #1f2937;
+      }
+      @media (max-width: 900px) {
+        .hero { grid-template-columns: 1fr; }
+        .grid { grid-template-columns: 1fr; }
+      }
+      code {
+        background: #0b1220;
+        padding: 2px 6px;
+        border-radius: 6px;
+        border: 1px solid #1f2937;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="brand">
+          <div class="brand-badge">B</div>
+          <span>Bookstore</span>
+        </div>
+        <nav>
+          <a href="/">Home</a>
+          <a href="https://spring.io/projects/spring-boot" target="_blank" rel="noreferrer">Spring Boot</a>
+          <a href="https://www.postgresql.org/" target="_blank" rel="noreferrer">PostgreSQL</a>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <div>
+          <h1>Welcome to Bookstore</h1>
+          <p>
+            This is the home page of your Spring Boot application. The API is secured with JWT; use the endpoints under
+            <code>/api</code> for programmatic access.
+          </p>
+          <div class="cta">
+            <a class="btn primary" href="/index.html">Refresh</a>
+            <a class="btn" href="https://localhost:${PORT:5000}/api/auth/login" onclick="return false;" title="Use your client to POST credentials">Login (API)</a>
+          </div>
+        </div>
+        <div class="card">
+          <pre style="margin:0;white-space:pre-wrap"><code>Available endpoints
+POST /api/auth/register
+POST /api/auth/login
+
+GET  /api/v1/users/me   (role: USER)
+GET  /api/v1/users      (role: ADMIN)
+POST /api/v1/users      (role: ADMIN)</code></pre>
+        </div>
+      </section>
+
+      <section class="grid">
+        <div class="card">
+          <strong>Tech stack</strong>
+          <p style="color:var(--muted);margin-top:6px">Spring Boot 3, Spring Security (JWT), JPA, PostgreSQL.</p>
+        </div>
+        <div class="card">
+          <strong>How to use</strong>
+          <p style="color:var(--muted);margin-top:6px">Register and login via API to receive a JWT, then call protected routes with the token.</p>
+        </div>
+        <div class="card">
+          <strong>Next steps</strong>
+          <p style="color:var(--muted);margin-top:6px">Add catalog pages and integrate with your user flows.</p>
+        </div>
+      </section>
+
+      <footer>
+        © <span id="year"></span> Bookstore. All rights reserved.
+      </footer>
+    </div>
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </body>
+  </html>
+
+

@@ -1,19 +1,21 @@
 package com.bookstore.in.Auth.service;
 
-import com.bookstore.in.Auth.dto.AuthResponse;
-import com.bookstore.in.Auth.dto.LoginRequest;
-import com.bookstore.in.Auth.dto.RegisterRequest;
-import com.bookstore.in.User.model.User;
-import com.bookstore.in.User.service.UserService;
-import com.bookstore.in.security.JwtService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import com.bookstore.in.Auth.dto.AuthResponse;
+import com.bookstore.in.Auth.dto.LoginRequest;
+import com.bookstore.in.Auth.dto.RegisterRequest;
+import com.bookstore.in.Security.JwtService;
+import com.bookstore.in.User.model.User;
+import com.bookstore.in.User.service.UserService;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor

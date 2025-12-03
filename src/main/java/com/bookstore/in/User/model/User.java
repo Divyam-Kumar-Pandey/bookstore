@@ -1,6 +1,6 @@
 package com.bookstore.in.User.model;
 
-import com.bookstore.in.auth.service.AuthService;
+import com.bookstore.in.Auth.service.AuthService;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;

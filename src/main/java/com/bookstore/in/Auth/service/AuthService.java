@@ -1,10 +1,10 @@
-package com.bookstore.in.auth.service;
+package com.bookstore.in.Auth.service;
 
+import com.bookstore.in.Auth.dto.AuthResponse;
+import com.bookstore.in.Auth.dto.LoginRequest;
+import com.bookstore.in.Auth.dto.RegisterRequest;
 import com.bookstore.in.User.model.User;
 import com.bookstore.in.User.service.UserService;
-import com.bookstore.in.auth.dto.AuthResponse;
-import com.bookstore.in.auth.dto.LoginRequest;
-import com.bookstore.in.auth.dto.RegisterRequest;
 import com.bookstore.in.security.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;

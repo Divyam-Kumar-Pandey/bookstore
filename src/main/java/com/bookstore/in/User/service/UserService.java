@@ -1,8 +1,9 @@
 package com.bookstore.in.User.service;
 
+import com.bookstore.in.Auth.service.AuthService;
 import com.bookstore.in.User.model.User;
 import com.bookstore.in.User.repository.UserRepository;
-import com.bookstore.in.auth.service.AuthService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;

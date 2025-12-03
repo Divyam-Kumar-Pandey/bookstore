@@ -1,4 +1,4 @@
-package com.bookstore.in.auth.dto;
+package com.bookstore.in.Auth.dto;
 
 import jakarta.validation.constraints.NotBlank;
 

@@ -1,16 +1,17 @@
-package com.bookstore.in.auth.controller;
+package com.bookstore.in.Auth.controller;
 
-import com.bookstore.in.auth.dto.AuthResponse;
-import com.bookstore.in.auth.dto.LoginRequest;
-import com.bookstore.in.auth.dto.RegisterRequest;
-import com.bookstore.in.auth.dto.RefreshTokenRequest;
-import com.bookstore.in.auth.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.bookstore.in.Auth.dto.AuthResponse;
+import com.bookstore.in.Auth.dto.LoginRequest;
+import com.bookstore.in.Auth.dto.RefreshTokenRequest;
+import com.bookstore.in.Auth.dto.RegisterRequest;
+import com.bookstore.in.Auth.service.AuthService;
 
 @RestController
 @RequestMapping("/api/v1/auth")

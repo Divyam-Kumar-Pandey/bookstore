@@ -1,10 +1,8 @@
 package com.bookstore.in.User.service;
 
-import com.bookstore.in.Auth.service.AuthService;
-import com.bookstore.in.User.model.User;
-import com.bookstore.in.User.repository.UserRepository;
+import java.util.List;
+import java.util.Objects;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,7 +11,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
+import com.bookstore.in.Auth.service.AuthService;
+import com.bookstore.in.User.dto.UpdateUserRequest;
+import com.bookstore.in.User.model.User;
+import com.bookstore.in.User.repository.UserRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -43,6 +46,39 @@ public class UserService implements UserDetailsService {
     public User findById(Long id) {
         return repo.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+    }
+
+    public User updateSelf(User currentUser, UpdateUserRequest request) {
+        return applyUpdates(currentUser, request, false);
+    }
+
+    public User updateByAdmin(Long userId, UpdateUserRequest request) {
+        User user = findById(userId);
+        return applyUpdates(user, request, true);
+    }
+
+    private User applyUpdates(User user, UpdateUserRequest request, boolean allowPrivilegedFields) {
+        if (request.firstName() != null && !Objects.equals(request.firstName(), user.getFirstName())) {
+            user.setFirstName(request.firstName());
+        }
+        if (request.lastName() != null && !Objects.equals(request.lastName(), user.getLastName())) {
+            user.setLastName(request.lastName());
+        }
+        if (request.avatar() != null && !Objects.equals(request.avatar(), user.getAvatar())) {
+            user.setAvatar(request.avatar());
+        }
+        if (request.dateOfBirth() != null && !Objects.equals(request.dateOfBirth(), user.getDateOfBirth())) {
+            user.setDateOfBirth(request.dateOfBirth());
+        }
+        if (request.phoneNumber() != null && !Objects.equals(request.phoneNumber(), user.getPhoneNumber())) {
+            user.setPhoneNumber(request.phoneNumber());
+        }
+        if (allowPrivilegedFields) {
+            if (request.role() != null && !Objects.equals(request.role(), user.getRole())) {
+                user.setRole(request.role());
+            }
+        }
+        return repo.save(user);
     }
 
     @Override

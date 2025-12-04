@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bookstore.in.Address.dto.CreateAddressRequest;
 import com.bookstore.in.Address.model.Address;
 import com.bookstore.in.Address.service.AddressService;
+import com.bookstore.in.ApiResponse;
 import com.bookstore.in.User.model.User;
 
 import jakarta.validation.Valid;
@@ -24,11 +25,11 @@ public class AddressController {
 
 	@PostMapping("/my-addresses")
 	@PreAuthorize("hasRole('USER')")
-	public Address addAddress(
+	public ApiResponse<Address> addAddress(
 			@AuthenticationPrincipal User currentUser,
 			@Valid @RequestBody CreateAddressRequest request
 	) {
-		return addressService.createForUser(currentUser, request);
+		return ApiResponse.success("Address added successfully", addressService.createForUser(currentUser, request));
 	}
 }
 

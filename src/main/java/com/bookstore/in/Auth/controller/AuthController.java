@@ -12,6 +12,7 @@ import com.bookstore.in.Auth.dto.LoginRequest;
 import com.bookstore.in.Auth.dto.RefreshTokenRequest;
 import com.bookstore.in.Auth.dto.RegisterRequest;
 import com.bookstore.in.Auth.service.AuthService;
+import com.bookstore.in.ApiResponse;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -21,18 +22,18 @@ public class AuthController {
 	private final AuthService authService;
 
 	@PostMapping("/register")
-	public AuthResponse register(@Valid @RequestBody RegisterRequest request) {
-		return authService.register(request);
+	public ApiResponse<AuthResponse> register(@Valid @RequestBody RegisterRequest request) {
+		return ApiResponse.success("User registered successfully", authService.register(request));
 	}
 
 	@PostMapping("/login")
-	public AuthResponse login(@Valid @RequestBody LoginRequest request) {
-		return authService.login(request);
+	public ApiResponse<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
+		return ApiResponse.success("User logged in successfully", authService.login(request));
 	}
 	
 	@PostMapping("/refresh")
-	public AuthResponse refresh(@Valid @RequestBody RefreshTokenRequest request) {
-		return authService.refresh(request.refreshToken());
+	public ApiResponse<AuthResponse> refresh(@Valid @RequestBody RefreshTokenRequest request) {
+		return ApiResponse.success("Token refreshed successfully", authService.refresh(request.refreshToken()));
 	}
 }
 
